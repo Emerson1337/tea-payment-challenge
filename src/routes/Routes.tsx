@@ -1,16 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-import { Login } from '../pages/login';
+import { WeatherDashboard } from '../pages/dashboard';
 
 export default function Routes() {
 	return (
 		<BrowserRouter>
 			<Switch>
 				<Route path="/" exact>
-					<Redirect to="/dashboard" />
+					<Redirect to="/weather-city" />
 				</Route>
-				<Route path="/login" component={Login} />
+				<Route path="/weather-city" component={WeatherDashboard} />
 			</Switch>
 		</BrowserRouter>
 	);

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import './dashboard.scss';
 
-export function Dashboard() {
+export function WeatherDashboard() {
 	return (
 		<DashboardScreen className="about-us">
 			<Content></Content>
