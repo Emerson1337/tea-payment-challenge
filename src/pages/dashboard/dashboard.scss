@@ -1,0 +1,97 @@
+// Input style
+input {
+    font-family: 'Poppins' !important;
+    font-weight: 500 !important;
+    padding-left: 10px !important;
+}
+
+input::placeholder {
+    color: var(--light-gray-color) !important;
+}
+
+.removing-padding-right {
+    padding: .3px !important;
+}
+
+// Anchor formating
+.link-underline {
+    color: var(--light-blue-color);
+}
+
+// Login card style
+.form-login {
+    padding: 0;
+    margin: 15px 0;
+}
+
+.login-footer-checkbox {
+    margin: 5px;
+}
+
+.forget-password {
+    padding-right: 2px;
+}
+
+.login-button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button-login-position {
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+}
+
+.logo-banner-login {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+//table style
+.header-table {
+    background: var(--light-gray-color);
+}
+
+.header-th {
+    text-align: center;
+}
+
+.table {
+    width: 70% !important;
+}
+
+.table>:not(:first-child) {
+    border-top: 0px solid currentColor !important;
+}
+
+//Application styles
+.applications-list {
+    margin: 10px 0;
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+//switch styles
+.disabled-switch {
+    pointer-events: none;
+    opacity: 0.45;
+}
+
+//icon search position
+.icon-search-style {
+    color: var(--light-gray-color);
+}
+
+.input-search {
+    border: none !important;
+	border-radius: 8px !important;
+	outline: none !important;
+}
+
+.collapse-table-row {
+    padding-top: 15px;
+}
