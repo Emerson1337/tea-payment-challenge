@@ -1,22 +1,53 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { BsSearch } from 'react-icons/bs';
-
+import NotFound from '@assets/images/not-found.png';
 import { ButtonSearch } from '@components/UI/Buttons/ButtonSearch';
 import { CardWeather } from '@pages/dashboard/components/CardWeather/CardWeather';
+import { apiWeather } from '@services/api';
+import { averageTemperature } from '@shared/helpers/getAvgTemperature';
+import { getCardinal } from '@shared/helpers/getCardinalDirection';
+import { urls as apiUrls } from '@shared/lib/urls';
+import React, { useEffect, useState } from 'react';
+import { BsSearch } from 'react-icons/bs';
+import styled from 'styled-components';
+import {
+	getHistoryNavigationArray,
+	setLocalStorage,
+} from '@shared/hooks/setLocalStorage';
 
 import './dashboard.scss';
-import { apiWeather } from '@services/api';
-import { urls as apiUrls } from '@shared/lib/urls';
-import { getCardinal } from '@shared/helpers/getCardinalDirection';
-import { averageTemperature } from '@shared/helpers/getAvgTemperature';
 
 export function WeatherDashboard() {
-	const [city, setCity] = useState<string>('');
+	const [currentCity, setCurrentCity] = useState<string>('');
 	const [weatherCityInfo, setWeatherCityInfo] = useState<any>();
+	const [cityHistory, setCityHistory] = useState<Array<string>>();
+	const [searchError, setSearchError] = useState<boolean>(false);
+
+	const getHistorySearch = () => {
+		const historyCity = getHistoryNavigationArray();
+
+		// If doesn't exists history search
+		historyCity[0].length && setCityHistory(historyCity);
+	};
+
+	useEffect(() => {
+		getHistorySearch();
+	}, []);
 
 	const searchByCity = async (cityToSearch: string) => {
-		const cityWeatherInfo: any = await getCityWeatherInfo(cityToSearch);
+		setCurrentCity(cityToSearch);
+
+		const cityWeatherInfo: any = await getCityWeatherInfo(cityToSearch).catch(
+			(error) => {
+				return error;
+			}
+		);
+
+		if (cityWeatherInfo.response?.data.cod == 404) return setSearchError(true);
+		else setSearchError(false);
+
+		setLocalStorage(cityToSearch);
+
+		getHistorySearch();
+
 		getForecastWeather(
 			cityWeatherInfo.data.coord.lat,
 			cityWeatherInfo.data.coord.lon
@@ -55,26 +86,36 @@ export function WeatherDashboard() {
 				<CityInteraction>
 					<SearchArea>
 						<SearchCity
-							onChange={(data: React.ChangeEvent<HTMLInputElement>) =>
-								setCity(data.target.value)
+							onBlur={(data: React.ChangeEvent<HTMLInputElement>) =>
+								setCurrentCity(data.target.value)
 							}
 							placeholder="Enter the city"
 						/>
 						<BsSearch
-							onClick={() => searchByCity(city)}
+							onClick={() => searchByCity(currentCity)}
 							className="icon-search"
 						/>
 					</SearchArea>
 					<span className="history-title">Your last search:</span>
 					<CityHistory>
-						<ButtonSearch>Fortaleza</ButtonSearch>
-						<ButtonSearch>Fortaleza</ButtonSearch>
-						<ButtonSearch>Fortaleza</ButtonSearch>
-						<ButtonSearch>Fortaleza</ButtonSearch>
-						<ButtonSearch>Fortaleza</ButtonSearch>
+						{cityHistory?.map((city: string, key: number) => {
+							return (
+								<ButtonSearch
+									active={city == currentCity ? true : false}
+									searchEvent={() => searchByCity(city)}
+									key={key}
+								>
+									{city}
+								</ButtonSearch>
+							);
+						})}
 					</CityHistory>
+					{currentCity && (
+						<span className="search-title">Results for: {currentCity}</span>
+					)}
 					<CityWeatherList>
-						{weatherCityInfo &&
+						{!searchError ? (
+							weatherCityInfo &&
 							weatherCityInfo.map((eachDayWeather: any, key: number) => {
 								return (
 									<CardWeather
@@ -96,7 +137,13 @@ export function WeatherDashboard() {
 										windSpeed={eachDayWeather.wind_speed}
 									/>
 								);
-							})}
+							})
+						) : (
+							<ErrorHandling>
+								<img src={NotFound} alt="notFound" />
+								<span className="not-found-caption">City not found!</span>
+							</ErrorHandling>
+						)}
 					</CityWeatherList>
 				</CityInteraction>
 			</Container>
@@ -145,6 +192,12 @@ const CityInteraction = styled.div`
 	width: 70vw;
 	height: 12vh;
 
+	.search-title {
+		margin-top: 30px;
+		color: var(--semi-white-color);
+		font-weight: bold;
+	}
+
 	border-radius: 1px;
 	padding: 10px;
 	margin: 20px;
@@ -175,11 +228,24 @@ const CityHistory = styled.div`
 `;
 
 const CityWeatherList = styled.section`
-	margin-top: 50px;
+	margin-top: 20px;
 
 	width: 90vw;
 
 	display: flex;
 	justify-content: center;
 	align-items: center;
+`;
+
+const ErrorHandling = styled.div`
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: center;
+
+	.not-found-caption {
+		font-weight: bold;
+		font-size: 2rem;
+		color: var(--semi-white-color);
+	}
 `;

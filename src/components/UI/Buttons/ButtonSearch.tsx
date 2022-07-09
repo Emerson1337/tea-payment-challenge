@@ -2,8 +2,19 @@ import React from 'react';
 import { ButtonSearchDTO } from '@components/DTOs/ButtonSearchDTO';
 import styled from 'styled-components';
 
-export function ButtonSearch({ children }: ButtonSearchDTO) {
-	return <ButtonCity>{children}</ButtonCity>;
+export function ButtonSearch({
+	children,
+	searchEvent,
+	active,
+}: ButtonSearchDTO) {
+	return (
+		<ButtonCity
+			className={active ? 'active-button' : ''}
+			onClick={() => searchEvent(children)}
+		>
+			{children}
+		</ButtonCity>
+	);
 }
 
 const ButtonCity = styled.button`
