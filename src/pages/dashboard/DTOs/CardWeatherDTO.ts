@@ -1,7 +1,7 @@
 export interface CardWeatherDTO {
 	dayWeek: string;
 	icon: string;
-	temp: number;
+	temp: string;
 	minTemp: number;
 	maxTemp: number;
 	windSpeed: number;
