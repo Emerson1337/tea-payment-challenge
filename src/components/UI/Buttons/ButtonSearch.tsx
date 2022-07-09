@@ -1,26 +1,26 @@
-import { CityButtonDTO } from '@components/DTOs/CityButtonDTO';
 import React from 'react';
+import { ButtonSearchDTO } from '@components/DTOs/ButtonSearchDTO';
 import styled from 'styled-components';
 
-export function CityButton({ children }: CityButtonDTO) {
+export function ButtonSearch({ children }: ButtonSearchDTO) {
 	return <ButtonCity>{children}</ButtonCity>;
 }
 
 const ButtonCity = styled.button`
 	border: none;
-	width: 200px;
+	width: 180px;
 	height: 50px;
 
 	background-color: transparent;
 
-	font-size: 2rem;
+	font-size: 1.5rem;
 	color: var(--semi-white-color);
 
 	cursor: pointer;
 
 	border: 2px solid var(--semi-white-color);
 
-	margin: 20px;
+	margin: 10px;
 
 	border-radius: 5px;
 

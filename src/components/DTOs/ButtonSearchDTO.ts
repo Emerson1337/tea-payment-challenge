@@ -1,4 +1,4 @@
 import React from 'react';
-export interface CityButtonDTO {
+export interface ButtonSearchDTO {
 	children: React.ReactNode;
 }

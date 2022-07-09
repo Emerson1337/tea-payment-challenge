@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CityButton } from '@components/UI/CityButton/CityButton';
 import { BsSearch } from 'react-icons/bs';
+
+import { ButtonSearch } from '@components/UI/Buttons/ButtonSearch';
+import { CardWeather } from '@pages/dashboard/components/CardWeather/CardWeather';
 
 import './dashboard.scss';
 
@@ -11,19 +13,28 @@ export function WeatherDashboard() {
 			<Container>
 				<CityInteraction>
 					<SearchArea>
+						<SearchCity placeholder="Enter the city" />
 						<BsSearch className="icon-search" />
-						<SearchCity />
 					</SearchArea>
-					<span className="history-title">Your city history:</span>
+					<span className="history-title">Your last search:</span>
 					<CityHistory>
-						<CityButton>Fortaleza</CityButton>
-						<CityButton>Fortaleza</CityButton>
-						<CityButton>Fortaleza</CityButton>
-						<CityButton>Fortaleza</CityButton>
-						<CityButton>Fortaleza</CityButton>
-						<CityButton>Fortaleza</CityButton>
-						<CityButton>Fortaleza</CityButton>
+						<ButtonSearch>Fortaleza</ButtonSearch>
+						<ButtonSearch>Fortaleza</ButtonSearch>
+						<ButtonSearch>Fortaleza</ButtonSearch>
+						<ButtonSearch>Fortaleza</ButtonSearch>
+						<ButtonSearch>Fortaleza</ButtonSearch>
 					</CityHistory>
+					<CityWeatherList>
+						<CardWeather
+							dayWeek="Monday"
+							icon="da.png"
+							maxTemp={23}
+							minTemp={32}
+							temp={25}
+							windDir={'SW'}
+							windSpeed={2}
+						/>
+					</CityWeatherList>
 				</CityInteraction>
 			</Container>
 		</Background>
@@ -31,32 +42,37 @@ export function WeatherDashboard() {
 }
 
 const SearchArea = styled.div`
+	display: flex;
+	align-items: center;
+
+	background-color: #ffffff;
+	border-radius: 10px;
+
+	padding: 0 30px;
+
+	margin-bottom: 20px;
+
 	.icon-search {
-		position: absolute;
-		top: 10vh;
-		right: 22vw;
 		font-size: 2.5rem;
+		cursor: pointer;
 		color: var(--background-blue-color);
 	}
 `;
 
 const Background = styled.div`
-	width: 100%;
 	height: 100vh;
 
 	display: flex;
 	justify-content: center;
 
 	margin-top: 0px;
-
 	background: var(--background-blue-color-opacity);
-
 	overflow: hidden;
 `;
 
 const Container = styled.div`
 	padding: 20px;
-	width: 80vw;
+	width: 90vw;
 
 	display: flex;
 	justify-content: center;
@@ -68,20 +84,20 @@ const CityInteraction = styled.div`
 
 	border-radius: 1px;
 	padding: 10px;
-	margin: 1rem;
+	margin: 20px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
 	box-sizing: border-box;
-
-	/* background-image: linear-gradient(180deg, #ede9dc, #ebe5e9); */
 `;
 
 const SearchCity = styled.input`
 	outline: none;
 	border: none;
-	background-color: #ffffff;
-	border-radius: 10px;
 	width: 92%;
-	padding: 1rem;
+	padding-left: 35.2px;
 	display: flex;
 	-webkit-box-align: center;
 	align-items: center;
@@ -91,25 +107,16 @@ const SearchCity = styled.input`
 `;
 
 const CityHistory = styled.div`
-	overflow-x: scroll;
+	display: flex;
+	justify-content: space-between;
+`;
 
-	::-webkit-scrollbar {
-		width: 10px;
-	}
+const CityWeatherList = styled.section`
+	margin-top: 50px;
 
-	/* Track */
-	::-webkit-scrollbar-track {
-		background: var(--background-blue-color-opacity);
-		border-radius: 10px;
-	}
+	width: 90vw;
 
-	/* Handle */
-	::-webkit-scrollbar-thumb {
-		background: var(--semi-white-colo);
-	}
-
-	/* Handle on hover */
-	::-webkit-scrollbar-thumb:hover {
-		background: var(--semi-white-colo);
-	}
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
