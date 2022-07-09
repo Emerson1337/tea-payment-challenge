@@ -25,7 +25,7 @@ export function WeatherDashboard() {
 		const historyCity = getHistoryNavigationArray();
 
 		// If doesn't exists history search
-		historyCity[0].length && setCityHistory(historyCity);
+		historyCity[0].length && setCityHistory(lastFiveCityHistory(historyCity));
 	};
 
 	useEffect(() => {
@@ -80,10 +80,15 @@ export function WeatherDashboard() {
 		setWeatherCityInfo(weatherCityData.data.daily.slice(0, -2));
 	};
 
+	const lastFiveCityHistory = (allHistory: Array<string>) => {
+		return allHistory.slice(0, 5);
+	};
+
 	return (
 		<Background className="about-us">
 			<Container>
 				<CityInteraction>
+					<span className="title-page">Get weather city info</span>
 					<SearchArea>
 						<SearchCity
 							onBlur={(data: React.ChangeEvent<HTMLInputElement>) =>
@@ -192,10 +197,16 @@ const CityInteraction = styled.div`
 	width: 70vw;
 	height: 12vh;
 
-	.search-title {
+	.search-title,
+	.title-page {
 		margin-top: 30px;
 		color: var(--semi-white-color);
 		font-weight: bold;
+	}
+
+	.title-page {
+		margin-top: 0px;
+		margin-bottom: 10px;
 	}
 
 	border-radius: 1px;

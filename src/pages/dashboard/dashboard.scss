@@ -14,6 +14,6 @@ input::placeholder {
 }
 
 .active-button {
-    background: var(--semi-white-color);
-    color: var(--background-blue-color);
+    background: var(--semi-white-color) !important;
+    color: var(--background-blue-color) !important;
 }
