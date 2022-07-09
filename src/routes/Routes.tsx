@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-import { WeatherDashboard } from '../pages/dashboard';
+import { WeatherDashboard } from '@pages/dashboard';
 
 export default function Routes() {
 	return (
