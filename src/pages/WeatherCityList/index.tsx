@@ -4,11 +4,15 @@ import { CardWeather } from '@pages/WeatherCityList/components/CardWeather/CardW
 import { apiWeather } from '@services/api';
 import { averageTemperature } from '@shared/helpers/getAvgTemperature';
 import { getCardinal } from '@shared/helpers/getCardinalDirection';
-import { getHistoryNavigationArray, setLocalStorage } from '@shared/hooks/setLocalStorage';
+import {
+	getHistoryNavigationArray,
+	setLocalStorage,
+} from '@shared/hooks/setLocalStorage';
 import { urls as apiUrls } from '@shared/lib/urls';
 import React, { useEffect, useState } from 'react';
-import { BsSearch } from 'react-icons/bs';
+import { BsFillTrashFill, BsSearch } from 'react-icons/bs';
 import styled from 'styled-components';
+import { clearLocalStorageFrom } from '@shared/hooks/clearLocalStorage';
 
 import './weatherCityList.scss';
 
@@ -18,6 +22,7 @@ export function WeatherDashboard() {
 	const [cityHistory, setCityHistory] = useState<Array<string>>();
 	const [searchError, setSearchError] = useState<boolean>(false);
 
+	// Get the user history city
 	const getHistorySearch = () => {
 		const historyCity = getHistoryNavigationArray();
 
@@ -29,6 +34,7 @@ export function WeatherDashboard() {
 		getHistorySearch();
 	}, []);
 
+	// Main function to call functions to get current weather and forecast
 	const searchByCity = async (cityToSearch: string) => {
 		setCurrentCity(cityToSearch);
 
@@ -52,6 +58,7 @@ export function WeatherDashboard() {
 		return;
 	};
 
+	// Get city weather
 	const getCityWeatherInfo = async (currentCity: string) => {
 		const unit = 'metric';
 		const language = 'en';
@@ -63,6 +70,7 @@ export function WeatherDashboard() {
 		return weatherCityData;
 	};
 
+	// Get weather forecast five days
 	const getForecastWeather = async (
 		latitudine: string,
 		longitudine: string
@@ -74,11 +82,18 @@ export function WeatherDashboard() {
 			})
 		);
 
+		// Returns 7 forecasts, we wanna 5
 		setWeatherCityInfo(weatherCityData.data.daily.slice(0, -2));
 	};
 
 	const lastFiveCityHistory = (allHistory: Array<string>) => {
 		return allHistory.slice(0, 5);
+	};
+
+	// Clear city history
+	const clearData = () => {
+		setCityHistory([]);
+		clearLocalStorageFrom('navigation');
 	};
 
 	return (
@@ -98,6 +113,9 @@ export function WeatherDashboard() {
 							className="icon-search"
 						/>
 					</SearchArea>
+					<div onClick={() => clearData()} className="clear-function">
+						<BsFillTrashFill /> <span className="text-clear">Clear data</span>
+					</div>
 					<span className="history-title">Your last search:</span>
 					<CityHistory>
 						{cityHistory?.map((city: string, key: number) => {

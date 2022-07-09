@@ -13,6 +13,31 @@ input::placeholder {
     color: var(--semi-white-color);
 }
 
+.text-clear {
+    margin-left: 10px;
+}
+
+.clear-function {
+    background: var(--semi-white-color);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width: 140px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    &:hover {
+        background: var(--semi-dark-white-color);
+        transition: all .2s;
+    }
+}
+
 .active-button {
     background: var(--semi-white-color) !important;
     color: var(--background-blue-color) !important;
