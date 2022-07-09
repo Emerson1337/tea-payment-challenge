@@ -1,19 +1,16 @@
 import NotFound from '@assets/images/not-found.png';
 import { ButtonSearch } from '@components/UI/Buttons/ButtonSearch';
-import { CardWeather } from '@pages/dashboard/components/CardWeather/CardWeather';
+import { CardWeather } from '@pages/WeatherCityList/components/CardWeather/CardWeather';
 import { apiWeather } from '@services/api';
 import { averageTemperature } from '@shared/helpers/getAvgTemperature';
 import { getCardinal } from '@shared/helpers/getCardinalDirection';
+import { getHistoryNavigationArray, setLocalStorage } from '@shared/hooks/setLocalStorage';
 import { urls as apiUrls } from '@shared/lib/urls';
 import React, { useEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import styled from 'styled-components';
-import {
-	getHistoryNavigationArray,
-	setLocalStorage,
-} from '@shared/hooks/setLocalStorage';
 
-import './dashboard.scss';
+import './weatherCityList.scss';
 
 export function WeatherDashboard() {
 	const [currentCity, setCurrentCity] = useState<string>('');

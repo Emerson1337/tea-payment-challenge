@@ -1,8 +1,8 @@
+import { CardWeatherDTO } from '@pages/WeatherCityList/DTOs/CardWeatherDTO';
+import { API_ICON_WATHER_LINK } from '@shared/constants/apiLink';
+import { urls as apiUrls } from '@shared/lib/urls';
 import React from 'react';
 import styled from 'styled-components';
-import { CardWeatherDTO } from '@pages/dashboard/DTOs/CardWeatherDTO';
-import { urls as apiUrls } from '@shared/lib/urls';
-import { API_ICON_WATHER_LINK } from '@shared/constants/apiLink';
 
 export function CardWeather({
 	dayWeek,
