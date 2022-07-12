@@ -1,5 +1,5 @@
 import { CardWeatherDTO } from '@pages/WeatherCityList/DTOs/CardWeatherDTO';
-import { API_ICON_WATHER_LINK } from '@shared/constants/apiLink';
+import { API_ICON_WEATHER_LINK } from '@shared/constants/apiLink';
 import { urls as apiUrls } from '@shared/lib/urls';
 import React from 'react';
 import styled from 'styled-components';
@@ -18,7 +18,7 @@ export function CardWeather({
 			<CardTitle>{dayWeek}</CardTitle>
 			<CardBody>
 				<img
-					src={API_ICON_WATHER_LINK + apiUrls.icons.getIconWeather(icon)}
+					src={API_ICON_WEATHER_LINK + apiUrls.icons.getIconWeather(icon)}
 					alt=""
 				/>
 				<p>{temp}º</p>
