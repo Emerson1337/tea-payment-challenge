@@ -20,6 +20,7 @@ export function WeatherDashboard() {
 	const [currentCity, setCurrentCity] = useState<string>('');
 	const [weatherCityInfo, setWeatherCityInfo] = useState<any>();
 	const [cityHistory, setCityHistory] = useState<Array<string>>();
+	const [cityText, setCityText] = useState<string>('');
 	const [searchError, setSearchError] = useState<boolean>(false);
 
 	// Get the user history city
@@ -103,13 +104,16 @@ export function WeatherDashboard() {
 					<span className="title-page">Get weather city info</span>
 					<SearchArea>
 						<SearchCity
-							onBlur={(data: React.ChangeEvent<HTMLInputElement>) =>
-								setCurrentCity(data.target.value)
+							onKeyUp={(data: React.ChangeEvent<HTMLInputElement>) =>
+								setCityText(data.target.value)
 							}
 							placeholder="Enter the city"
 						/>
 						<BsSearch
-							onClick={() => searchByCity(currentCity)}
+							onClick={() => {
+								setCurrentCity(cityText);
+								searchByCity(cityText);
+							}}
 							className="icon-search"
 						/>
 					</SearchArea>

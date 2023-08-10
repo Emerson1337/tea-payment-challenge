@@ -1,7 +1,7 @@
 import { GetForecastDTO } from '@components/DTOs/GetForecastDTO';
 import { GetCityDTO } from '@components/DTOs/GetCityDTO';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
+const API_KEY = 'e971dbbb91c64f4ca40546388c0e9c10';
 
 export const urls = {
 	cityWeather: {
